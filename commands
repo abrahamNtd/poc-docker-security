@@ -1,0 +1,31 @@
+
+Scaning Dockerfile 
+
+brew install hadolint
+
+hadolint Dockerfile
+
+docker run --rm -i hadolint/hadolint < Dockerfile
+
+hadolint --config hadolint.yaml Dockerfile
+
+hadolint Dockerfile-fix 
+
+hadolint --format json  Dockerfile-fix
+
+Building the test image
+
+docker build -t abrahamntd/basic-python:latest .
+
+Scanning Docker Image
+
+brew tap anchore/grype
+brew install grype
+
+docker build -t abrahamntd/basic-python:latest .
+
+grype abrahamntd/basic-python:latest 
+
+grype abrahamntd/basic-python:latest -o json
+
+docker run -it --rm --name=deepfence-secretscanner -v $(pwd):/home/deepfence/output -v /var/run/docker.sock:/var/run/docker.sock deepfenceio/deepfence_secret_scanner:latest -image-name abrahamntd/basic-python:latest
